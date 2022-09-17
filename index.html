@@ -1,14 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script defer type="module" src='main.js'></script>
-</head>
-<body>
-    
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="header.css" />
+    <link rel="stylesheet" href="./search.css" />
+    <script defer type="module" src="main.js"></script>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <div class="container headerContainer">
+        <div class="logo">
+          <img class="logoImg" src="./wotLogo.svg" alt="W" />
+        </div>
+
+        <h1 class="headerTitle">WOT statistics</h1>
+        <ul class="headerNav">
+          <li class="home">Home</li>
+          <li id="auth"><img src="./logIn.svg" alt="Log in" /></li>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <section class="container">
+        <ul class="searchFields">
+
+          <li class="searchTitle">Find player by Nickname:</li>
+          <li class="searchContainer">
+            <select name="regions" class="regionSearch">
+              <option value="ru" class="regionOption">RU</option>
+              <option value="eu" class="regionOption">EU</option>
+              <option value="na" class="regionOption">NA</option>
+              <option value="asia" class="regionOption">ASIA</option>
+            </select>
+            <input
+            id="inputNameValue"
+              class="searchInput"
+              type="text"
+              placeholder="Type a nickname..."/>
+            <button id="searchNameButton" class="searchButton">Search</button>
+          </li>
+
+          <li class="searchTitle">Or by player ID:</li>
+          <li class="searchContainer">
+            <select name="regions" class="regionSearch">
+              <option value="ru" class="regionOption">RU</option>
+              <option value="eu" class="regionOption">EU</option>
+              <option value="na" class="regionOption">NA</option>
+              <option value="asia" class="regionOption">ASIA</option>
+            </select>
+            <input
+            id="inputIDValue"
+              class="searchInput"
+              type="text"
+              placeholder="Type an ID..."/>
+            <button id="searchIDButton" class="searchButton">Search</button>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer></footer>
+  </body>
 </html>

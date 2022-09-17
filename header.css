@@ -1,0 +1,64 @@
+/* HEADER */
+header {
+    transition: all .3s;
+height: 100px;
+background-color: #181818;
+margin-bottom: 250px;
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logo   {
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.logoImg {
+    margin-top: 15px;
+}
+
+.logoImg:hover,
+.logoImg:focus {
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(117%) contrast(97%);
+}
+
+.headerTitle {
+    margin-left: 60px;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    font-size: 42px;
+    background: linear-gradient(145deg, rgba(255,255,255,1) 0%, rgba(135,135,135,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.headerNav {
+    margin-left: auto;
+    display: flex;
+ align-items: center;
+ gap: 40px;
+}
+
+.home:hover {
+    cursor: pointer;
+    color: #eaa91c;
+}
+
+#auth {
+    cursor: pointer;
+    display: flex;
+
+    width: 45px;
+    height: 45px;
+    alt: 'Log in';
+}
+
+#auth:hover,
+#auth:focus {
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(117%) contrast(97%);
+}
