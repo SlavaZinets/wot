@@ -1,0 +1,21 @@
+.playerContainer {
+    cursor: pointer;
+    height: 80px;
+    margin-bottom: 50px;
+    background-color: #181818;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 7px;
+    width: 100%;
+}
+
+.playerContainer:hover {
+    transition: all .3s;
+    color: #eaa91c;
+}
+
+
+.playerName {
+    margin-left: 30px;
+}

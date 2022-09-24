@@ -1,0 +1,24 @@
+.statsNick {
+    font-weight: 700;
+    font-size: 56px;
+}
+
+/* BATTLES */
+.statsBattles{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+}
+
+.statsSwords {
+    width: 30px;
+    height: 30px;
+    background-image: url(./swords.svg);
+    filter: invert(100%);
+}
+
+.battlesNum {
+    font-size: 24px;
+}
