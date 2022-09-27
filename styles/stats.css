@@ -6,6 +6,7 @@
 /* BATTLES */
 .statsBattles{
     margin-top: 20px;
+    margin-bottom: 50px;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -21,4 +22,50 @@
 
 .battlesNum {
     font-size: 24px;
+    font-weight: 400;
+}
+
+.generalStatsContainer {
+    display: flex;
+    flex-direction: column;
+    /* align-items: start;
+    justify-content: start; */
+    gap: 20px;
+    width: 100%;
+}
+
+.hoverContainer {
+    overflow: hidden;
+    width: 500px;
+    margin-bottom: 20px;
+
+}
+
+.hoverContainer:hover {
+    width: 100%;
+    transition: all 1s;
+}
+
+.generalStatsParameter {
+    cursor: pointer;
+    padding-inline: 30px;
+    width: 75vw;
+    height: 50px;
+    background-color: #202020;
+    padding-block: 12px;
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: 400;
+    border-radius: 5px;
+}
+
+.generalStatsParameterDescr {
+    width: 450px;
+    display: inline-block;
+}
+
+.generalStatsNum {
+    width: min-content;
 }
