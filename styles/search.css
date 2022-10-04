@@ -17,7 +17,8 @@ flex-direction: column;
     margin-bottom: 25px;
 }
 
-.regionSearch {
+.regionSearch { 
+     font-size: 16px;
     transition: all .3s;
     width: 75px;
     border-radius: 25px 0 0 25px;
@@ -47,6 +48,11 @@ flex-direction: column;
     
 }
 
+.searchInput:focus{
+    outline: none;
+    background-color: #202020;
+}
+
 .searchInput::placeholder {
     color: rgb(163, 163, 163);
 }
@@ -67,4 +73,108 @@ border: 0;
     transition: all .3s;
     opacity: 1;
     color: #eaa91c;
+}
+
+@media screen and (max-width: 768px){
+
+    .searchTitle {
+        font-size: 36px;
+    }
+
+    .searchContainer {
+        margin-bottom: 40px;
+        height: 40px;
+    }
+
+    .regionSearch {
+        font-size: 14px;
+        width: 60px;
+        border-radius: 20px 0 0 20px;
+        text-indent: 12px;
+    }
+
+    .searchInput {
+        width: 250px;
+        text-indent: 12px;
+        font-size: 14px;
+        
+    }
+
+
+    .searchButton {
+        font-size: 14px;
+        border-radius: 0 20px 20px 0;
+        width: 70px;
+    }
+
+}
+
+@media screen and (max-width: 420px){
+
+    .searchTitle {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .searchContainer {
+        margin-bottom: 40px;
+        height: 40px;
+    }
+
+    .regionSearch {
+        font-size: 14px;
+        width: 60px;
+        border-radius: 20px 0 0 20px;
+        text-indent: 12px;
+    }
+
+    .searchInput {
+        width: 200px;
+        text-indent: 12px;
+        font-size: 14px;
+        
+    }
+
+
+    .searchButton {
+        font-size: 14px;
+        border-radius: 0 20px 20px 0;
+        width: 70px;
+    }
+
+}
+
+@media screen and (max-width: 375px){
+
+    .searchTitle {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .searchContainer {
+        margin-bottom: 30px;
+        height: 39px;
+    }
+
+    .regionSearch {
+        font-size: 12px;
+        width: 50px;
+        border-radius: 17px 0 0 17px;
+        text-indent: 10px;
+    }
+
+    .searchInput {
+        width: 175px;
+        text-indent: 10px;
+        font-size: 12px;
+        
+    }
+
+
+    .searchButton {
+        font-size: 12px;
+        border-radius: 0 17px 17px 0;
+        width: 55px;
+    }
+
 }

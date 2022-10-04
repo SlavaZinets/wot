@@ -27,7 +27,7 @@ async function renderPlayers(array) {
     );
     buildElement("h3", searchingContainer, "playerName", element.nickname);
 
-    const clanTag = buildElement("span", searchingContainer, "clanTag", tag);
+    const clanTag = buildElement("span", searchingContainer, "clanTag", `[${tag}]`);
 
     searchingContainer.addEventListener("click", () => {
       fetchStats(regionNick, accountID);
@@ -41,8 +41,8 @@ function renderInputs() {
   <li class="searchTitle">Find player by Nickname:</li>
   <li class="searchContainer">
     <select id="regionNick" class="regionSearch">
-      <option value="ru" class="regionOption">RU</option>
       <option value="eu" class="regionOption">EU</option>
+      <option value="ru" class="regionOption">RU</option>
       <option value="com" class="regionOption">NA</option>
       <option value="asia" class="regionOption">ASIA</option>
     </select>
@@ -57,8 +57,8 @@ function renderInputs() {
   <li class="searchTitle">Or by player ID:</li>
   <li class="searchContainer">
     <select id="regionID" class="regionSearch">
-      <option value="ru" class="regionOption">RU</option>
       <option value="eu" class="regionOption">EU</option>
+      <option value="ru" class="regionOption">RU</option>
       <option value="com" class="regionOption">NA</option>
       <option value="asia" class="regionOption">ASIA</option>
     </select>
