@@ -1,4 +1,10 @@
+.searchingPlayers {
+    display: flex;
+    flex-direction: column;
+}
+
 .playerContainer {
+    pointer-events: none;
     cursor: pointer;
     height: 80px;
     margin-bottom: 50px;
@@ -7,15 +13,84 @@
     align-items: center;
     gap: 10px;
     border-radius: 7px;
-    width: 100%;
+    width: 95%;
+    font-size: 18px;
+    order: 1;
 }
 
 .playerContainer:hover {
-    transition: all .3s;
     color: #eaa91c;
 }
 
 
 .playerName {
     margin-left: 30px;
+}
+
+.ShowMoreButton {
+    width: 100px;
+    height: 20px;
+    order: 2;
+    border: none;
+    outline: none;
+    margin-inline: auto;
+    margin-bottom: 40px;
+    background-color:  transparent;
+    cursor: pointer;
+    opacity: 0.65;
+    font-size: 16px;
+    color: #fff;
+
+}
+
+.ShowMoreButton:hover {
+    opacity: 1;
+}
+
+.scrollButton {
+    transition: all .3s;
+    background-color:  transparent;
+    background-image: url(./svgIcons/up-arrow.svg);
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    position: fixed; 
+    bottom: -55px; 
+    right: 40px; 
+    z-index: 99;  
+    border: none;
+    outline: none;
+    opacity: 0.7;
+    filter: invert(100%);
+}
+
+.scrollButton:hover {
+opacity: 1;
+filter: invert(81%) sepia(10%) saturate(7345%) brightness(97%) contrast(88%);
+  }
+
+@media screen and (max-width: 768px){
+    .playerContainer {
+        height: 70px;
+        margin-bottom: 40px;
+        border-radius: 7px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 425px){
+    .playerContainer {
+        height: 60px;
+        margin-bottom: 30px;
+        border-radius: 6px;
+    }
+}
+
+@media screen and (max-width: 375px){
+    .playerContainer {
+        height: 55px;
+        margin-bottom: 25px;
+        border-radius: 5px;
+        font-size: 13px;
+    }
 }

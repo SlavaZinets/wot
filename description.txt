@@ -1,0 +1,15 @@
+Hi!
+It is one-page site for people, who wants to see their statistics in the game World of Tanks.
+It uses official wargaming API. 
+You can search players by their nicknames or accountIDs`.
+Choose the right region before searching.
+By clicking logo, you can reload a page.
+
+You can search these name on EU, ASIA or NA regions:
+- WildPants  (less than ten players, "show more" button won`t be on screen)
+- player  (more than ten players, so you can can click "show more" button)
+
+
+
+
+

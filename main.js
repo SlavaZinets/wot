@@ -1,4 +1,8 @@
-import { buildElement, parseDate } from "./utils";
+import {
+  buildElement,
+  addScrollToTop,
+  removeAllObjectsWithClass,
+} from "./utils";
 //   VARIABLES
 const body = document.querySelector("body");
 
@@ -12,11 +16,14 @@ let regionNick;
 
 //   RENDER
 
-async function renderPlayers(array) {
-  searchingPlayers.innerHTML = "";
+async function renderNextTenPlayers(array, arrayPosition, playersAmount) {
+  if (array.length < 10) {
+    const showMoreButton = document.querySelector(".ShowMoreButton");
+    showMoreButton.remove();
+  }
 
-  for (const element of array) {
-    const accountID = element.account_id;
+  while (arrayPosition < playersAmount) {
+    const accountID = array[arrayPosition].account_id;
 
     const tag = await fetchClanTag(regionNick, accountID);
 
@@ -25,13 +32,81 @@ async function renderPlayers(array) {
       searchingPlayers,
       "playerContainer"
     );
-    buildElement("h3", searchingContainer, "playerName", element.nickname);
+    buildElement(
+      "h3",
+      searchingContainer,
+      "playerName",
+      array[arrayPosition].nickname
+    );
 
-    const clanTag = buildElement("span", searchingContainer, "clanTag", `[${tag}]`);
+    const clanTag = buildElement(
+      "span",
+      searchingContainer,
+      "clanTag",
+      `[${tag}]`
+    );
 
     searchingContainer.addEventListener("click", () => {
       fetchStats(regionNick, accountID);
     });
+    arrayPosition++;
+  }
+}
+
+async function renderPlayers(array) {
+  searchingPlayers.innerHTML = "";
+
+  if (array) {
+    let playersAmount = 10;
+    let arrayPosition = 0;
+
+    const showMoreButton = buildElement(
+      "button",
+      searchingPlayers,
+      "ShowMoreButton",
+      "Show more"
+    );
+
+    const scrollTopButton = buildElement(
+      "button",
+      searchingPlayers,
+      "scrollButton"
+    );
+    addScrollToTop(scrollTopButton);
+
+    renderNextTenPlayers(array, arrayPosition, playersAmount)
+      .then(() => {
+        playersAmount += 10;
+        arrayPosition += 10;
+      })
+      .finally(() => {
+        home.style = "pointer-events: auto";
+
+        const players = document.querySelectorAll(".playerContainer");
+        players.forEach((element) => {
+          element.style = "pointer-events: auto";
+        });
+      });
+
+    showMoreButton.addEventListener("click", function () {
+      renderNextTenPlayers(array, arrayPosition, playersAmount).then(() => {
+        playersAmount += 10;
+        arrayPosition += 10;
+
+        if (arrayPosition > array.length - 10) {
+          const showMoreButton = document.querySelector(".ShowMoreButton");
+          showMoreButton.remove();
+        }
+      });
+    });
+  } else {
+    buildElement(
+      "p",
+      searchingPlayers,
+      "noResults",
+      "Oops... We have nothing you searching for. Sorry"
+    );
+    home.style = "pointer-events: auto";
   }
 }
 
@@ -42,7 +117,6 @@ function renderInputs() {
   <li class="searchContainer">
     <select id="regionNick" class="regionSearch">
       <option value="eu" class="regionOption">EU</option>
-      <option value="ru" class="regionOption">RU</option>
       <option value="com" class="regionOption">NA</option>
       <option value="asia" class="regionOption">ASIA</option>
     </select>
@@ -58,7 +132,6 @@ function renderInputs() {
   <li class="searchContainer">
     <select id="regionID" class="regionSearch">
       <option value="eu" class="regionOption">EU</option>
-      <option value="ru" class="regionOption">RU</option>
       <option value="com" class="regionOption">NA</option>
       <option value="asia" class="regionOption">ASIA</option>
     </select>
@@ -75,11 +148,12 @@ function renderInputs() {
 
   searchNameButton.addEventListener("click", searchThisName);
   searchIDButton.addEventListener("click", searchThisID);
+
+  removeAllObjectsWithClass(".playerContainer");
 }
 
 function renderStats(player) {
   searchingPlayers.innerHTML = "";
-  // fetchClanTag(regionNick, tag)
   let winrate =
     (player.statistics.all.wins / player.statistics.all.battles) * 100;
 
@@ -88,18 +162,11 @@ function renderStats(player) {
   buildElement("p", statsBattles, "battlesNum", player.statistics.all.battles);
   buildElement("div", statsBattles, "statsSwords");
 
-  buildElement("div", searchingPlayers, "winrateNum", winrate.toFixed(2) + "%");
-  buildElement(
+  const statsWinrate = buildElement(
     "div",
     searchingPlayers,
-    "statsDate",
-    parseDate(player.created_at)
-  );
-  buildElement(
-    "div",
-    searchingPlayers,
-    "statsDate",
-    parseDate(player.last_battle_time)
+    "winrateNum",
+    winrate.toFixed(2) + "% winrate"
   );
 
   const generalStatisticsContainer = buildElement(
@@ -122,7 +189,7 @@ function renderStats(player) {
     "p",
     statsParameter_damage_dealt,
     "generalStatsParameterDescr",
-    "Total amount of damage you`ve dealt:"
+    "Total amount of damage you`ve dealed:"
   );
   const damage_dealt = buildElement(
     "div",
@@ -214,7 +281,7 @@ function renderStats(player) {
     "p",
     statsParameter_hits,
     "generalStatsParameterDescr",
-    "Total amount of hits you`ve dealt:"
+    "Total amount of hits you`ve dealed:"
   );
   const hits = buildElement(
     "div",
@@ -352,30 +419,28 @@ function renderStats(player) {
     "p",
     statsParameter__cut_trees,
     "generalStatsParameterDescr",
-    "Total amount of trees you`ve cutted"
+    "Total amount of trees you`ve cutted:"
   );
   const _cut_trees = buildElement(
     "div",
     statsParameter__cut_trees,
     "generalStatsNum",
-    player.statistics.cut_trees
+    player.statistics.trees_cut
   );
 }
 
 //   FETCH
-function fetchStats(region, id) {
-  fetch(
-    `https://api.worldoftanks.${region}/wot/account/info/?application_id=88de5ca6c8e18fa6a41bb502d6cfb95a&account_id=${id}`
-  )
-    .then((response) => response.json())
-    .then((dataServer) => {
-      renderStats(dataServer.data[id]);
-    });
+async function fetchStats(region, id) {
+  const response = await fetch(
+    `https://api.worldoftanks.${region}/wot/account/info/?application_id=93326d8622f474fef9fc89033127e9a6&account_id=${id}`
+  );
+  const dataServer = await response.json();
+  renderStats(dataServer.data[id]);
 }
 
 async function fetchClanTag(region, id) {
   return fetch(
-    `https://api.worldoftanks.${region}/wot/clans/accountinfo/?application_id=88de5ca6c8e18fa6a41bb502d6cfb95a&account_id=${id}`
+    `https://api.worldoftanks.${region}/wot/clans/accountinfo/?application_id=93326d8622f474fef9fc89033127e9a6&account_id=${id}`
   )
     .then((response) => response.json())
     .then((dataServer) => {
@@ -393,7 +458,7 @@ function searchThisName() {
   regionNick = document.getElementById("regionNick").value;
 
   fetch(
-    `https://api.worldoftanks.${regionNick}/wot/account/list/?application_id=88de5ca6c8e18fa6a41bb502d6cfb95a&search=${inputName}`
+    `https://api.worldoftanks.${regionNick}/wot/account/list/?application_id=93326d8622f474fef9fc89033127e9a6&search=${inputName}`
   )
     .then((response) => response.json())
     .then((dataServer) => {
@@ -402,11 +467,25 @@ function searchThisName() {
     });
 }
 
-function searchThisID() {
-  const inputID = document.getElementById("inputIDValue").value;
-  let regionID = document.getElementById("regionID").value;
-  fetchStats(regionID, inputID);
+async function searchThisID() {
+  try {
+    const inputID = document.getElementById("inputIDValue").value;
+    let regionID = document.getElementById("regionID").value;
+    await fetchStats(regionID, inputID);
+  } catch (error) {
+    if (true) {
+      buildElement(
+        "p",
+        searchingPlayers,
+        "noResults",
+        "Oops... We have nothing you searching for. Sorry"
+      );
+    }
+  }
 }
 
 //   HEADER
-home.addEventListener("click", renderInputs);
+home.addEventListener("click", () => {
+  renderInputs();
+  home.style = "pointer-events: none";
+});

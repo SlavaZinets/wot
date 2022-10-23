@@ -15,3 +15,30 @@ export function parseDate(timestamp) {
   }.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   return parsed;
 }
+
+export function addScrollToTop (button) {
+
+  button.addEventListener('click', topFunction);
+
+  window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    button.style.bottom = "40px";
+  } else {
+    button.style.bottom = "-55px";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+}
+
+export async function removeAllObjectsWithClass (className) {
+const objects = document.querySelectorAll(className);
+objects.forEach( (object) => {
+object.remove();
+});
+};

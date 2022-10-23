@@ -1,6 +1,6 @@
 /* HEADER */
 header {
-    transition: all .3s;
+transition: all .3s;
 height: 100px;
 background-color: #181818;
 margin-bottom: 250px;
@@ -14,8 +14,8 @@ margin-bottom: 250px;
 }
 
 .logo   {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background-size: contain;
     cursor: pointer;
 }
@@ -45,6 +45,10 @@ margin-bottom: 250px;
     display: flex;
  align-items: center;
  gap: 40px;
+}
+
+.home {
+    pointer-events: none;
 }
 
 .home:hover {
@@ -128,4 +132,11 @@ margin-bottom: 250px;
         font-size: 30px;
     }
 
+}
+
+@media screen and (max-width: 320px){
+
+    header {
+        margin-bottom: 80px;
+    }
 }
